@@ -1,12 +1,16 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 
-Window {
+Item {
     id: root
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+
+    // testing purpuse
+    property Rectangle bgRect: bg
+    property Rectangle simpleRect: simpleRectangle
+    property MouseArea switchColorMA: switchColorMA
 
     property int buttonWidth: 150
     property int buttonHeight: 60
@@ -26,7 +30,7 @@ Window {
             height: childrenRect.height
             spacing: 10
             Rectangle {
-                id: action
+                id: switchColorRectangle
                 color: "gray"
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -40,7 +44,10 @@ Window {
                     font.pixelSize: 20
                 }
                 MouseArea {
+                    id: switchColorMA
                     anchors.fill: parent
+                    onPressedChanged:
+
                     onClicked:  {
                         root.colorIndex = (root.colorIndex + 1) %2
                         bg.color = root.colorTab[root.colorIndex]
@@ -89,11 +96,12 @@ Window {
                 anchors.centerIn: parent
 
                 Rectangle {
+                    id: simpleRectangle
                     width: buttonWidth*0.6
                     height: buttonHeight
                     color: "orange"
                     Text {
-                        id: simpleRectangle
+                        id: simpleRectangleText
                         text: "Simple \n Rectangle"
                         anchors.centerIn: parent
                     }
@@ -114,7 +122,6 @@ Window {
                             popup.colorIndex = (popup.colorIndex + 1) % 2
                             popupColorWitness.color = popup.colorTab[popup.colorIndex]
                         }
-
                     }
                 }
 
@@ -153,7 +160,7 @@ Window {
                     height: buttonHeight
                     color: "orange"
                     Text {
-                        text: "MA click \n through"
+                        text: "MA press \n through"
                         anchors.centerIn: parent
                     }
                     MouseArea {
@@ -169,12 +176,13 @@ Window {
                     height: buttonHeight
                     color: "orange"
                     Text {
-                        text: "MA press \n through"
+                        text: "MA click \n through"
                         anchors.centerIn: parent
                     }
                     MouseArea {
                         anchors.fill: parent
-                        onPressed: {
+                        propagateComposedEvents: false
+                        onClicked: {
                             mouse.accepted = false
                         }
                     }
