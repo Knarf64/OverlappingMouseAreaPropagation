@@ -8,9 +8,9 @@ Item {
     height: 480
 
     // testing purpuse
-    property Rectangle bgRect: bg
-    property Rectangle simpleRect: simpleRectangle
-    property MouseArea switchColorMA: switchColorMA
+//    property Rectangle bgRect: bg
+//    property Rectangle simpleRect: simpleRectangle
+//    property MouseArea switchColorMA: switchColorMA
 
     property int buttonWidth: 150
     property int buttonHeight: 60
@@ -194,7 +194,8 @@ Item {
                         onPressed: {
                             mouse.accepted = false //pressed should go through
                         }
-                        // what about click ? answer : go through as well
+                        // what about click ?
+                        // answer : go through as well since Pressed (first step of click is going through)
                     }
                 }
 
